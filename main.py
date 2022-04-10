@@ -1,43 +1,32 @@
+from operator import truediv
 import random
-from re import X
-from telnetlib import DO
 
-def guess(x):
-    random_number = random.randint(1,x)
-    guess=0
-    while guess != random_number:
-        guess = int(input(f" guess a number between 1 and {x} :"))
-        if guess< random_number:
-            print("sorry, guess again. Too low")
-        elif guess> random_number:
-            print("sorry, guess again. Too high ")
-    print(f"yay, congrats. you have guessed the number {random_number} correctily!!! ")            
-    print(guess)
-
-def computer_guess(x):
-    low=1
-    high=x
-    feedback=""
-    while feedback !='c':
-        if  low != high:
-            guess = random.randint(low, high)
-        else:
-            guess =low   
-        feedback=input(f" Is {guess} too high (h), too lower (l), or correct (c)???")
-        if feedback == 'h':
-            high =guess-1
-        elif feedback =='l':
-            low = guess+1
-
-
-x=int(input("enter the upper limit "))
-computer_guess(x)
-   
-print(f"Yay! the computer guessed your number, {guess}, correctily !!!")
-
-
-
+def play():
+    user = input ("what's your choice   'r' for rock, 'p' for paper, 's' for scissors : ")
+    computer = random.choice(['r','p','s'])
     
 
+    if user == computer:
+        return 'tie'
+
+    # r>s, s>p, p>r 
+
+    if is_win(user,computer):
+        return 'you won!!!'
+
+    return 'you lost!!!'    
+
+def is_win(player,opponent):
+        # return true if player wins
+        # r>s, s>p, p>r
+        if(player=='r' and opponent=='s') or (player=='s'and opponent=='p')\
+            or (player =='p'and opponent=='r'):
+            return True    
 
 
+y='y'
+
+while(y=='y'):
+    y='n'
+    print(play())
+    y=input("do you want to do more (y/n)")
